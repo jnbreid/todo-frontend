@@ -22,13 +22,7 @@
   <script setup lang="ts">
   import TaskItem from './TaskItem.vue'
   import { defineProps, defineEmits } from 'vue'
-  
-  interface Task {
-    id: string
-    title: string
-    description: string
-    completed: boolean
-  }
+  import type { Task } from '../types/task'
   
   const props = defineProps<{
     tasks: Task[]

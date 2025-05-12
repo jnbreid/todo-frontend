@@ -1,5 +1,3 @@
-
-
 <template>
     <div
       class="flex items-center justify-between p-4 bg-white border rounded-xl shadow-sm hover:shadow-md transition"
@@ -43,14 +41,8 @@
   <script setup lang="ts">
   import { defineProps, defineEmits } from 'vue'
   import Button from 'primevue/button'
-  
-  interface Task {
-    id: string
-    title: string
-    description: string
-    completed: boolean
-  }
-  
+  import type { Task } from '../types/task'
+    
   const props = defineProps<{
     task: Task
   }>()
