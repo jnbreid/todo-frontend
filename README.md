@@ -14,7 +14,7 @@ This is the frontend for a simple to-do application built with [Vue 3](https://v
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Vue 3**
 - **TypeScript**
