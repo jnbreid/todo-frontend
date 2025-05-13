@@ -14,12 +14,7 @@
             <Password v-model="form.password" class="w-full" toggleMask required />
           </div>
   
-          <Button
-            label="Create Account"
-            icon="pi pi-user-plus"
-            class="w-full"
-            type="submit"
-          />
+          <Button label="Create Account" icon="pi pi-user-plus" class="w-full" type="submit" />
         </form>
   
         <p class="mt-4 text-sm text-center text-gray-500">

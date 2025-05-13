@@ -50,12 +50,14 @@
   }>()
   
   const form = ref<Task>({
+    id: '',
     title: '',
     description: '',
     completed: false,
+    deadline: ''
   })
   
-  // If editing, populate the form
+ 
   watch(
     () => props.task,
     (newTask) => {
