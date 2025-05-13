@@ -18,11 +18,9 @@
       <router-view />
     </div>
   </div>
-
-  <div class="bg-red-500 text-white p-4 text-lg">
-    Tailwind is working!
-  </div>
 </template>
+
+
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
@@ -30,7 +28,7 @@ import { ref, onMounted } from 'vue'
 const isDark = ref(false)
 
 const updateHtmlClass = () => {
-  const html = document.documentElement // ⬅️ This selects <html>
+  const html = document.documentElement 
   if (isDark.value) {
     html.classList.add('dark')
   } else {
