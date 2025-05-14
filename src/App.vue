@@ -27,28 +27,19 @@ import { ref, onMounted } from 'vue'
 
 const isDark = ref(false)
 
-const updateHtmlClass = () => {
-  const html = document.documentElement 
-  if (isDark.value) {
-    html.classList.add('dark')
-  } else {
-    html.classList.remove('dark')
-  }
-}
 
-onMounted(() => {
-  const saved = localStorage.getItem('theme')
-  if (saved) {
-    isDark.value = saved === 'dark'
-  } else {
-    isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
-  }
-  updateHtmlClass()
-})
 
-const toggleDark = () => {
+function toggleDark() {
   isDark.value = !isDark.value
-  localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
-  updateHtmlClass()
+  const lightTheme = document.getElementById('pv-light') as HTMLLinkElement
+  const darkTheme = document.getElementById('pv-dark') as HTMLLinkElement
+
+  if (lightTheme && darkTheme) {
+    lightTheme.disabled = isDark.value
+    darkTheme.disabled = !isDark.value
+  }
+
+  // Optional: also toggle Tailwind's dark mode
+  document.documentElement.classList.toggle('dark', isDark.value)
 }
 </script>
