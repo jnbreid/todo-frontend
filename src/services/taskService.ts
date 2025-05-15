@@ -2,13 +2,6 @@
 import apiClient from './apiClient'
 import type { Task } from '../types/task'
 
-try {
-    const response = await apiClient.post<AuthResponse>('/users/login', user)
-    return response.data
-} catch (error) {
-    throw new Error('Login failed')
-}
-
 export async function fetchMyTasks(): Promise<Task[]> {
   try {
     const response = await apiClient.get('/tasks/my-tasks')
