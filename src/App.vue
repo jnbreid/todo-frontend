@@ -27,7 +27,24 @@ import { ref, onMounted } from 'vue'
 
 const isDark = ref(false)
 
+const updateHtmlClass = () => {
+  const html = document.documentElement 
+  if (isDark.value) {
+    html.classList.add('dark')
+  } else {
+    html.classList.remove('dark')
+  }
+}
 
+onMounted(() => {
+  const saved = localStorage.getItem('theme')
+  if (saved) {
+    isDark.value = saved === 'dark'
+  } else {
+    isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
+  }
+  updateHtmlClass()
+})
 
 function toggleDark() {
   isDark.value = !isDark.value

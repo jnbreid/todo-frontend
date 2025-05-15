@@ -1,20 +1,24 @@
 <template>
-    <div class="flex justify-center items-center min-h-screen bg-gray-50 p-4">
-      <div class="w-full max-w-md bg-white p-6 rounded-2xl shadow-md">
-        <h1 class="text-2xl font-bold mb-6 text-center">Register</h1>
+    <div class="flex justify-center items-center min-h-screen bg-gray-50 dark:bg-gray-900 p-4">
+      <div class="w-full max-w-md bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md">
+        <h1 class="text-2xl font-bold mb-6 text-center dark:text-white">Register</h1>
   
         <form @submit.prevent="handleSubmit" class="space-y-4">
           <div>
             <label class="block text-sm font-medium mb-1">Username</label>
-            <InputText v-model="form.username" class="w-full" required />
+            <InputText v-model="form.username" 
+            class="w-full px-4 py-0.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white mb-4"
+            required />
           </div>
   
           <div>
             <label class="block text-sm font-medium mb-1">Password</label>
-            <Password v-model="form.password" class="w-full" toggleMask required />
+            <Password v-model="form.password" class="w-full" 
+            inputClass="w-full px-4 py-0.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white" 
+            toggleMask required />
           </div>
   
-          <Button label="Create Account" icon="pi pi-user-plus" class="w-full" type="submit" />
+          <Button label="Login" icon="pi pi-sign-in" class="w-full bg-blue-600 hover:bg-blue-700 text-white border-none rounded-lg shadow" type="submit" />
         </form>
   
         <p class="mt-4 text-sm text-center text-gray-500">

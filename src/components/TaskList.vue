@@ -2,11 +2,11 @@
 
 <template>
     <div>
-      <div v-if="tasks.length === 0" class="text-center text-gray-400 p-4">
-        No tasks found.
+      <div v-if="tasks.length === 0" class="text-center text-gray-400 dark:text-gray-500 p-4">
+      No tasks found.
       </div>
   
-      <div class="space-y-3">
+      <div class="space-y-3 max-h-[70vh] overflow-y-auto pr-2">
         <TaskItem
           v-for="task in tasks"
           :key="task.id"
