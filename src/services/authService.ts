@@ -3,7 +3,7 @@ import axios from 'axios'
 import type { User } from '../types/user'
 import type { AuthResponse } from '../types/authResponse'
 
-const API_BASE = '/api/users'
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api/users'
 
 export const register = async (user: User): Promise<AuthResponse> => {
   const response = await axios.post<AuthResponse>(`${API_BASE}/register`, user)
