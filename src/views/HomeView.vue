@@ -1,6 +1,8 @@
 <template>
   <div class="max-w-3xl mx-auto p-6 space-y-6 text-gray-900 dark:text-gray-100">
-    <h1 class="text-2xl font-bold">Welcome back</h1>
+    <h1 class="text-2xl font-bold">
+      Welcome<span v-if="authStore.isAuthenticated">, {{ authStore.username }}</span>
+    </h1>
 
     <div class="flex justify-between items-center">
       <h2 class="text-xl font-semibold">Your Tasks</h2>
@@ -49,7 +51,10 @@ import TaskForm from '../components/TaskForm.vue'
 import TaskList from '../components/TaskList.vue'
 import Dialog from 'primevue/dialog'
 import Button from 'primevue/button'
+import { useAuthStore } from '../store/auth'
 import type { Task } from '../types/task'
+
+const authStore = useAuthStore()
 
 const tasks = ref<Task[]>([])
 
