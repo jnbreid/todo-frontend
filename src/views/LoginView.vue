@@ -42,7 +42,7 @@
   import InputText from 'primevue/inputtext'
   import Password from 'primevue/password'
   import Button from 'primevue/button'
-  import { login } from '../api/auth'
+  import { AuthService } from '../services/authService'
   import type { User } from '../types/user'
   
   const router = useRouter()
@@ -55,10 +55,12 @@
     username: '',
     password: ''
   })
+
+  const auth = new AuthService()
   
   const handleSubmit = async () => {
     try {
-      const response = await login(form.value)
+      const response = await auth.login(form.value)
       
       authStore.setAuth(response)
   

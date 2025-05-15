@@ -35,10 +35,12 @@
   import InputText from 'primevue/inputtext'
   import Password from 'primevue/password'
   import Button from 'primevue/button'
-  import { register } from '../api/auth'
+  import { AuthService } from '../services/authService'
   import type { User } from '../types/user'
   
   const router = useRouter()
+
+  const auth = new AuthService()
   
   const form = ref<User>({
     username: '',
@@ -47,7 +49,7 @@
   
   const handleSubmit = async () => {
     try {
-      await register(form.value)
+      await auth.register(form.value)
       router.push('/login')
     } catch (err) {
       console.error('Registration failed', err)

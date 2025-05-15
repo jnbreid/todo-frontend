@@ -1,20 +1,19 @@
 
-import axios from 'axios'
+import apiClient from './apiClient'
 import type { User } from '../types/user'
 import type { AuthResponse } from '../types/authResponse'
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api/users'
+export class AuthService {
+  async login(user: User): Promise<AuthResponse> {
+    try {
+        const response = await apiClient.post<AuthResponse>('/users/login', user)
+        return response.data
+    } catch (error) {
+        throw new Error('Login failed')
+    }
+  }
 
-export const register = async (user: User): Promise<AuthResponse> => {
-  const response = await axios.post<AuthResponse>(`${API_BASE}/register`, user)
-  return response.data
-}
-
-export const login = async (user: User): Promise<AuthResponse> => {
-   try {
-    const response = await axios.post<AuthResponse>(`${API_BASE}/login`, user)
-    return response.data
-  } catch (error) {
-    throw new Error('Login failed')
+  async register(user: User): Promise<void> {
+    await apiClient.post('/users/register', user)
   }
 }
