@@ -17,10 +17,10 @@ export async function fetchMyTasks(): Promise<Task[]> {
 
 export async function createTask(task: Task): Promise<void> {
  
-        task.id = "00000000-0000-0000-0000-000000000000" // empty/Nil UUID as placeholder (is changed in backend)
+        task.publicId = "00000000-0000-0000-0000-000000000000" // empty/Nil UUID as placeholder (is changed in backend)
         const payload = {
             ...task,
-            deadline: task.deadline ? task.deadline.toISOString() : null,//.toISOString().split('T')[0] : null,
+            deadline: task.deadline ? task.deadline.toISOString().split('T')[0] : null,
         }
         await apiClient.post('/tasks', payload)
 

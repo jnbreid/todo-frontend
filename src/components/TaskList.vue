@@ -9,11 +9,11 @@
       <div class="space-y-3 max-h-[70vh] overflow-y-auto pr-2">
         <TaskItem
           v-for="(task, index) in tasks"
-          :key="task.id ?? `new-task-${index}`"
+          :key="task.publicId ?? `new-task-${index}`"
           :task="task"
-          @complete="$emit('complete', task.id)"
+          @complete="$emit('complete', task.publicId)"
           @edit="$emit('edit', task)"
-          @delete="$emit('delete', task.id)"
+          @delete="$emit('delete', task.publicId)"
         />
       </div>
     </div>
@@ -29,8 +29,8 @@
   }>()
   
   defineEmits<{
-    (e: 'complete', id: string): void
+    (e: 'complete', publicId: string): void
     (e: 'edit', task: Task): void
-    (e: 'delete', id: string): void
+    (e: 'delete', publicId: string): void
   }>()
   </script>

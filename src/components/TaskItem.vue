@@ -1,7 +1,7 @@
 <template>
   <div
     class="flex items-center justify-between p-4 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition text-gray-900 dark:text-gray-100"
-    :class="{ 'opacity-50 line-through': task.completed }"
+    :class="{ 'opacity-50 line-through': task.complete }"
   >
     <div class="flex flex-col">
       <h3 class="text-lg font-medium truncate">{{ task.name }}</h3>
@@ -29,8 +29,8 @@
         text
         rounded
         aria-label="Complete"
-        @click="$emit('complete', task.id)"
-        v-if="!task.completed"
+        @click="$emit('complete', task.publicId)"
+        v-if="!task.complete"
       />
       <Button
         icon="pi pi-pencil"
@@ -46,7 +46,7 @@
         text
         rounded
         aria-label="Delete"
-        @click="$emit('delete', task.id)"
+        @click="$emit('delete', task.publicId)"
       />
     </div>
   </div>
@@ -62,9 +62,9 @@ const props = defineProps<{
 }>()
 
 defineEmits<{
-  (e: 'complete', id: string): void
+  (e: 'complete', publicId: string): void
   (e: 'edit', task: Task): void
-  (e: 'delete', id: string): void
+  (e: 'delete', publicId: string): void
 }>()
 
 // Format deadline as readable date (e.g. "June 1, 2025")

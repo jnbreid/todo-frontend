@@ -28,7 +28,7 @@
       <div>
         <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-200">Deadline</label>
         <input
-          v-model="form.deadline"
+          v-model="deadlineString"
           type="date"
           class="w-full py-0.5 px-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
         />
@@ -58,14 +58,22 @@
   </template>
   
   <script setup lang="ts">
-  import { ref, watch, defineProps, defineEmits } from 'vue'
+  import { ref, watch, defineProps, defineEmits, computed } from 'vue'
   import InputText from 'primevue/inputtext'
   import Textarea from 'primevue/textarea'
   import Button from 'primevue/button'
   import Dropdown from 'primevue/dropdown'
   import type { Task } from '../types/task'  
 
-  
+  const deadlineString = computed({
+    get() {
+      return form.value.deadline ? form.value.deadline.toISOString().slice(0,10) : ''
+    },
+    set(newDateStr: string) {
+      form.value.deadline = new Date(newDateStr)
+    }
+  })
+
   const props = defineProps<{
     task?: Task
   }>()
@@ -83,10 +91,10 @@
   ]
   
   const form = ref<Task>({
-    id: '',
+    publicId: '',
     name: '',
     description: '',
-    completed: false,
+    complete: false,
     deadline: new Date(),
     priority: 1 // default to minimum priority
   })
@@ -95,10 +103,10 @@
   form.value = task
     ? { ...task }
     : {
-        id: '',
+        publicId: '',
         name: '',
         description: '',
-        completed: false,
+        complete: false,
         deadline: new Date(),
         priority: 1
       }
