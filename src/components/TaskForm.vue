@@ -5,7 +5,7 @@
       <div>
         <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-200">Title</label>
         <InputText
-          v-model="form.title"
+          v-model="form.name"
           class="w-full"
           inputClass="py-0.5 px-2"
           placeholder="Enter task title"
@@ -27,13 +27,23 @@
 
       <div>
         <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-200">Deadline</label>
-        <InputText
+        <input
           v-model="form.deadline"
-          class="w-full"
-          inputClass="py-0.5 px-2"
-          placeholder="e.g. 2025-06-01"
           type="date"
+          class="w-full py-0.5 px-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
         />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-200">Priority</label>
+          <Dropdown
+            v-model="form.priority"
+            :options="priorityOptions"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Select priority"
+            class="w-full"
+          />
       </div>
   
       <div class="flex justify-end">
@@ -52,6 +62,7 @@
   import InputText from 'primevue/inputtext'
   import Textarea from 'primevue/textarea'
   import Button from 'primevue/button'
+  import Dropdown from 'primevue/dropdown'
   import type { Task } from '../types/task'  
 
   
@@ -62,13 +73,22 @@
   const emit = defineEmits<{
     (e: 'submit', task: Task): void
   }>()
+
+  const priorityOptions = [
+    { label: '1 (Lowest)', value: 1 },
+    { label: '2', value: 2 },
+    { label: '3', value: 3 },
+    { label: '4', value: 4 },
+    { label: '5 (Highest)', value: 5 }
+  ]
   
   const form = ref<Task>({
     id: '',
-    title: '',
+    name: '',
     description: '',
     completed: false,
-    deadline: ''
+    deadline: new Date(),
+    priority: 1 // default to minimum priority
   })
   
   const initializeForm = (task?: Task) => {
@@ -76,10 +96,11 @@
     ? { ...task }
     : {
         id: '',
-        title: '',
+        name: '',
         description: '',
         completed: false,
-        deadline: ''
+        deadline: new Date(),
+        priority: 1
       }
   }
  
@@ -92,7 +113,7 @@
   )
   
   const submitForm = () => {
-    if (!form.value.title.trim()) return
+    if (!form.value.name.trim()) return
     emit('submit', { ...form.value })
     if (!props.task) {
       initializeForm() 

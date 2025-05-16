@@ -60,8 +60,8 @@
   
   const handleSubmit = async () => {
     try {
+      authStore.logout()
       const response = await auth.login(form.value)
-      
       authStore.setAuth(response)
   
       router.push('/') 

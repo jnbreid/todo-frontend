@@ -18,7 +18,7 @@
             toggleMask required />
           </div>
   
-          <Button label="Login" icon="pi pi-sign-in" class="w-full bg-blue-600 hover:bg-blue-700 text-white border-none rounded-lg shadow" type="submit" />
+          <Button label="Register" icon="pi pi-sign-in" class="w-full bg-blue-600 hover:bg-blue-700 text-white border-none rounded-lg shadow" type="submit" />
         </form>
   
         <p class="mt-4 text-sm text-center text-gray-500">

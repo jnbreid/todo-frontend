@@ -4,8 +4,24 @@
       <div class="text-lg font-semibold">My To-Do App</div>
       <div class="space-x-4 flex items-center">
         <router-link to="/" class="text-blue-600 dark:text-blue-400 hover:underline">Home</router-link>
-        <router-link to="/login" class="text-blue-600 dark:text-blue-400 hover:underline">Login</router-link>
-        <router-link to="/register" class="text-blue-600 dark:text-blue-400 hover:underline">Register</router-link>
+
+        <!-- Only show when NOT logged in -->
+        <template v-if="!isLoggedIn">
+          <router-link to="/login" class="text-blue-600 dark:text-blue-400 hover:underline">Login</router-link>
+          <router-link to="/register" class="text-blue-600 dark:text-blue-400 hover:underline">Register</router-link>
+        </template>
+
+        <!-- Show logout when logged in -->
+        <template v-else>
+          <span class="text-gray-600 dark:text-gray-300">Welcome, {{ authStore.username }}</span>
+          <button
+            @click="handleLogout"
+            class="text-sm px-3 py-1 rounded bg-red-500 hover:bg-red-600 text-white">
+            Logout
+          </button>
+        </template>
+
+        <!-- Theme toggle -->
         <button
           @click="toggleDark"
           class="ml-4 text-sm px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">
@@ -20,33 +36,20 @@
   </div>
 </template>
 
-
-
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from './store/auth' 
 
 const isDark = ref(false)
+const authStore = useAuthStore()
+const router = useRouter()
 
-const updateHtmlClass = () => {
-  const html = document.documentElement 
-  if (isDark.value) {
-    html.classList.add('dark')
-  } else {
-    html.classList.remove('dark')
-  }
-}
+// Computed login state
+const isLoggedIn = computed(() => !!authStore.token)
 
-onMounted(() => {
-  const saved = localStorage.getItem('theme')
-  if (saved) {
-    isDark.value = saved === 'dark'
-  } else {
-    isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
-  }
-  updateHtmlClass()
-})
-
-function toggleDark() {
+// Toggle dark mode
+const toggleDark = () => {
   isDark.value = !isDark.value
   const lightTheme = document.getElementById('pv-light') as HTMLLinkElement
   const darkTheme = document.getElementById('pv-dark') as HTMLLinkElement
@@ -56,7 +59,24 @@ function toggleDark() {
     darkTheme.disabled = !isDark.value
   }
 
-  // Optional: also toggle Tailwind's dark mode
   document.documentElement.classList.toggle('dark', isDark.value)
+  localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
+}
+
+// Load theme on mount
+onMounted(() => {
+  const saved = localStorage.getItem('theme')
+  if (saved) {
+    isDark.value = saved === 'dark'
+  } else {
+    isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
+  }
+  toggleDark() // Apply theme toggle logic
+})
+
+// Handle logout
+const handleLogout = () => {
+  authStore.logout()
+  router.push('/login')
 }
 </script>

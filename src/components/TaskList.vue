@@ -8,8 +8,8 @@
   
       <div class="space-y-3 max-h-[70vh] overflow-y-auto pr-2">
         <TaskItem
-          v-for="task in tasks"
-          :key="task.id"
+          v-for="(task, index) in tasks"
+          :key="task.id ?? `new-task-${index}`"
           :task="task"
           @complete="$emit('complete', task.id)"
           @edit="$emit('edit', task)"

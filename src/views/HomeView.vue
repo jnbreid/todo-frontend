@@ -46,13 +46,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import TaskForm from '../components/TaskForm.vue'
 import TaskList from '../components/TaskList.vue'
 import Dialog from 'primevue/dialog'
 import Button from 'primevue/button'
 import { useAuthStore } from '../store/auth'
 import type { Task } from '../types/task'
+
+import {
+  fetchMyTasks,
+  createTask,
+  updateTask,
+  completeTask,
+  deleteTask
+} from '../services/taskService'
 
 const authStore = useAuthStore()
 
@@ -71,26 +79,54 @@ const openEditTaskForm = (task: Task) => {
   showEditForm.value = true
 }
 
-const handleCreate = (task: Task) => {
-  tasks.value.push({ ...task, id: Date.now().toString() })
-  showCreateForm.value = false
-}
-
-const handleUpdate = (updatedTask: Task) => {
-  const index = tasks.value.findIndex(t => t.id === updatedTask.id)
-  if (index !== -1) {
-    tasks.value[index] = { ...updatedTask }
+onMounted(async () => {
+  try {
+    tasks.value = await fetchMyTasks()
+  } catch (error) {
+    console.error('Failed to load tasks:', error)
   }
-  showEditForm.value = false
+})
+
+const handleCreate = async (task: Task) => {
+  try {
+    await createTask(task)
+    // After creation, reload all tasks to get updated list from backend (or optimistically add task)
+    tasks.value = await fetchMyTasks()
+    showCreateForm.value = false
+  } catch (error) {
+    console.error('Failed to create task:', error)
+  }
 }
 
-const handleComplete = (id: string) => {
-  const t = tasks.value.find(t => t.id === id)
-  if (t) t.completed = true
+const handleUpdate = async (updatedTask: Task) => {
+  try {
+    await updateTask(updatedTask)
+    // Reload full list after update
+    tasks.value = await fetchMyTasks()
+    showEditForm.value = false
+  } catch (error) {
+    console.error('Failed to update task:', error)
+  }
 }
 
-const handleDelete = (id: string) => {
-  tasks.value = tasks.value.filter(t => t.id !== id)
+const handleComplete = async (publicId: string) => {
+  try {
+    await completeTask(publicId)
+    // Reload full list after update
+    tasks.value = await fetchMyTasks()
+  } catch (error) {
+    console.error('Failed to complete task:', error)
+  }
+}
+
+const handleDelete = async (publicId: string) => {
+  try {
+    await deleteTask(publicId)
+    // Reload full list after delete
+    tasks.value = await fetchMyTasks()
+  } catch (error) {
+    console.error('Failed to delete task:', error)
+  }
 }
 </script>
 

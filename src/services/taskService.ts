@@ -3,20 +3,27 @@ import apiClient from './apiClient'
 import type { Task } from '../types/task'
 
 export async function fetchMyTasks(): Promise<Task[]> {
-  try {
-    const response = await apiClient.get('/tasks/my-tasks')
-    return response.data
-  } catch (error) {
-    throw new Error('Loading tasks failed.')
-  }
+    try {
+        const response = await apiClient.get('/tasks/my-tasks')
+        const tasks: Task[] = response.data.map((task: any) => ({
+            ...task,
+            deadline: task.deadline ? new Date(task.deadline) : null,
+        }))
+        return tasks
+    } catch (error) {
+        throw new Error('Loading tasks failed.')
+    }
 }
 
 export async function createTask(task: Task): Promise<void> {
-    try {
-        await apiClient.post('/tasks', task)
-    } catch (error) {
-        throw new Error('Creating task failed.')
-    }
+ 
+        task.id = "00000000-0000-0000-0000-000000000000" // empty/Nil UUID as placeholder (is changed in backend)
+        const payload = {
+            ...task,
+            deadline: task.deadline ? task.deadline.toISOString() : null,//.toISOString().split('T')[0] : null,
+        }
+        await apiClient.post('/tasks', payload)
+
 }
 
 export async function updateTask(task: Task): Promise<void> {
