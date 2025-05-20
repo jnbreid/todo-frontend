@@ -28,8 +28,12 @@
       header="Create New Task"
       class="w-full md:w-[30rem]"
       :closable="true"
+      contentClass="dark:bg-gray-800 dark:text-gray-100"
+      headerClass="dark:bg-gray-900 dark:text-gray-100"
     >
-      <TaskForm @submit="handleCreate" />
+      <div class="dark:bg-gray-800 dark:text-gray-100 p-4">
+        <TaskForm @submit="handleCreate" />
+      </div>
     </Dialog>
 
     <!-- Edit Task Modal -->

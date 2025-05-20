@@ -16,4 +16,8 @@ export class AuthService {
   async register(user: User): Promise<void> {
     await apiClient.post('/users/register', user)
   }
+
+  async delete(user: User): Promise<void> {
+    await apiClient.delete('/users/delete', {data: user})
+  }
 }

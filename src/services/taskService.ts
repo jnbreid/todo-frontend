@@ -28,7 +28,11 @@ export async function createTask(task: Task): Promise<void> {
 
 export async function updateTask(task: Task): Promise<void> {
     try {
-        await apiClient.put('/tasks/update', task)
+        const payload = {
+            ...task,
+            deadline: task.deadline ? task.deadline.toISOString().split('T')[0] : null
+        }
+        await apiClient.put('/tasks/update', payload)
     } catch (error) {
         throw new Error('Updating task failed.')
     }

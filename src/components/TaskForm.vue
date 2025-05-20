@@ -6,7 +6,7 @@
         <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-200">Title</label>
         <InputText
           v-model="form.name"
-          class="w-full"
+          class="w-full dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700"
           inputClass="py-0.5 px-2"
           placeholder="Enter task title"
           required
@@ -14,10 +14,10 @@
       </div>
   
       <div>
-        <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-200">Title</label>
+        <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-200">Descirption</label>
         <Textarea
           v-model="form.description"
-          class="w-full"
+          class="w-full mt-2 border dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 rounded-lg"
           autoResize
           inputClass="py-0.5 px-2"
           rows="3"
@@ -30,7 +30,7 @@
         <input
           v-model="deadlineString"
           type="date"
-          class="w-full py-0.5 px-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
+          class="w-full py-0.5 px-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
         />
       </div>
 
@@ -42,7 +42,8 @@
             optionLabel="label"
             optionValue="value"
             placeholder="Select priority"
-            class="w-full"
+            contentClass="dark:bg-gray-800 dark:text-gray-100"
+            class="w-full mt-2 border dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 rounded-lg"
           />
       </div>
   
