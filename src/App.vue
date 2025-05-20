@@ -48,22 +48,21 @@ const router = useRouter()
 // Computed login state
 const isLoggedIn = computed(() => !!authStore.token)
 
-// Toggle dark mode
-const toggleDark = () => {
-  isDark.value = !isDark.value
+// Toggle dark/light mode
+const applyTheme = (dark: boolean) => {
   const lightTheme = document.getElementById('pv-light') as HTMLLinkElement
   const darkTheme = document.getElementById('pv-dark') as HTMLLinkElement
 
   if (lightTheme && darkTheme) {
-    lightTheme.disabled = isDark.value
-    darkTheme.disabled = !isDark.value
+    lightTheme.disabled = dark
+    darkTheme.disabled = !dark
   }
 
-  document.documentElement.classList.toggle('dark', isDark.value)
-  localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
+  document.documentElement.classList.toggle('dark', dark)
+  localStorage.setItem('theme', dark ? 'dark' : 'light')
 }
 
-// Load theme on mount
+// Load theme on mount and apply it
 onMounted(() => {
   const saved = localStorage.getItem('theme')
   if (saved) {
@@ -71,8 +70,14 @@ onMounted(() => {
   } else {
     isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
   }
-  toggleDark() // Apply theme toggle logic
+  applyTheme(isDark.value)
 })
+
+// Toggle dark mode manually
+const toggleDark = () => {
+  isDark.value = !isDark.value
+  applyTheme(isDark.value)
+}
 
 // Handle logout
 const handleLogout = () => {
