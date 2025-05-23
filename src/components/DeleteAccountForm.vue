@@ -36,13 +36,11 @@
   </template>
   
   <script setup lang="ts">
-  import { ref } from 'vue'
-  import { useRouter } from 'vue-router'
-  import { useAuthStore } from '../store/auth'
-  import { deleteUser } from '../services/authService'
-
-  const router = useRouter()
-  const authStore = useAuthStore()
+  import { ref, defineEmits } from 'vue'
+  
+  const emit = defineEmits<{
+    (e: 'submit', payload: { username: string; password: string }): void
+  }>()
   
   const form = ref({
     username: '',
@@ -51,13 +49,8 @@
   
   const errorMessage = ref('')
   
-  const handleDelete = async () => {
-    try {
-      await deleteUser(form.value)
-      authStore.logout()
-      router.push('/login')
-    } catch (error: any) {
-      errorMessage.value = error?.response?.data?.message || 'Failed to delete account'
-    }
+  const handleDelete = () => {
+    errorMessage.value = ''  // clear previous errors if any
+    emit('submit', { ...form.value })
   }
   </script>
