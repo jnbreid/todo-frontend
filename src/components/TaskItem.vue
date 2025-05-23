@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, computed } from 'vue'
+import { defineProps, computed } from 'vue'
 import Button from 'primevue/button'
 import type { Task } from '../types/task'
 

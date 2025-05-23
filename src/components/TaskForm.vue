@@ -59,7 +59,7 @@
   </template>
   
   <script setup lang="ts">
-  import { ref, watch, defineProps, defineEmits, computed } from 'vue'
+  import { ref, watch, defineProps, computed } from 'vue'
   import InputText from 'primevue/inputtext'
   import Textarea from 'primevue/textarea'
   import Button from 'primevue/button'

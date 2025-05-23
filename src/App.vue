@@ -21,18 +21,41 @@
           </button>
         </template>
 
-        <!-- Theme toggle -->
+        <!-- Settings button -->
         <button
-          @click="toggleDark"
-          class="ml-4 text-sm px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">
-          {{ isDark ? 'Dark' : 'Light' }}
+          @click="showSettings = true"
+          class="ml-2 text-sm px-3 py-1 rounded bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600"
+          title="Settings"
+        >
+          Settings
         </button>
+
       </div>
     </nav>
 
     <div class="p-6">
       <router-view />
     </div>
+
+     <!-- Settings Modal -->
+     <Dialog
+      v-model:visible="showSettings"
+      modal
+      header="Settings"
+      class="w-full max-w-md"
+      :closable="true"
+      contentClass="dark:bg-gray-800 dark:text-gray-100"
+      headerClass="dark:bg-gray-900 dark:text-gray-100"
+      @hide="showSettings = false"
+    >
+      <Settings
+        :is-dark="isDark"
+        :is-logged-in="isLoggedIn"
+        @toggle-dark="toggleDark"
+        @delete-account="handleDeleteAccount"
+      />
+    </Dialog>
+
   </div>
 </template>
 
@@ -40,10 +63,15 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from './store/auth' 
+import Dialog from 'primevue/dialog'
+import Settings from './components/Settings.vue'
+import { deleteUser } from './services/authService'
+import type { User } from './types/user'
 
 const isDark = ref(false)
 const authStore = useAuthStore()
 const router = useRouter()
+const showSettings = ref(false)
 
 // Computed login state
 const isLoggedIn = computed(() => !!authStore.token)
@@ -84,4 +112,16 @@ const handleLogout = () => {
   authStore.logout()
   router.push('/login')
 }
+
+
+const handleDeleteAccount = async (user: User) => {
+  try {
+    await deleteUser(user)
+    authStore.logout()
+    router.push('/login')
+  } catch (err) {
+    console.error('Delete account failed', err)
+  }
+}
+
 </script>

@@ -21,12 +21,10 @@
   
   <script setup lang="ts">
   import TaskItem from './TaskItem.vue'
-  import { defineProps, defineEmits } from 'vue'
+  import { defineProps } from 'vue'
   import type { Task } from '../types/task'
   
-  const props = defineProps<{
-    tasks: Task[]
-  }>()
+  const { tasks } = defineProps<{ tasks: Task[] }>()
   
   defineEmits<{
     (e: 'complete', publicId: string): void

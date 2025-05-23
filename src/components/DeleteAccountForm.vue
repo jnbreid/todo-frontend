@@ -22,10 +22,29 @@
         />
       </div>
   
+      <!-- Irreversible action warning -->
+      <p class="text-red-600 text-sm font-semibold">
+        Deleting your account is irreversible. All your data will be permanently removed.
+      </p>
+  
+      <!-- Confirmation checkbox -->
+      <div class="flex items-center space-x-2">
+        <input
+          type="checkbox"
+          id="confirmDelete"
+          v-model="confirmed"
+          class="accent-red-600"
+        />
+        <label for="confirmDelete" class="text-sm">
+          I understand and want to proceed with deleting my account.
+        </label>
+      </div>
+  
       <div class="flex justify-end space-x-2">
         <button
           type="submit"
-          class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
+          :disabled="!confirmed"
+          class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Delete Account
         </button>
@@ -36,7 +55,7 @@
   </template>
   
   <script setup lang="ts">
-  import { ref, defineEmits } from 'vue'
+  import { ref } from 'vue'
   
   const emit = defineEmits<{
     (e: 'submit', payload: { username: string; password: string }): void
@@ -47,9 +66,12 @@
     password: ''
   })
   
+  const confirmed = ref(false)
   const errorMessage = ref('')
   
   const handleDelete = () => {
-    emit('submit', { ...form.value })
+    if (confirmed.value) {
+      emit('submit', { ...form.value })
+    }
   }
   </script>

@@ -3,15 +3,17 @@
     <h1 class="text-2xl font-bold">
       Welcome<span v-if="authStore.isAuthenticated">, {{ authStore.username }}</span>
     </h1>
-
+  
     <div class="flex justify-between items-center">
       <h2 class="text-xl font-semibold">Your Tasks</h2>
-      <Button
-        label="New Task"
-        icon="pi pi-plus"
-        severity="primary"
-        @click="openNewTaskForm"
-      />
+      <div v-if="isLoggedIn">
+        <Button
+          label="New Task"
+          icon="pi pi-plus"
+          severity="primary"
+          @click="openNewTaskForm"
+        />
+      </div>
     </div>
 
     <TaskList
@@ -50,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import TaskForm from '../components/TaskForm.vue'
 import TaskList from '../components/TaskList.vue'
 import Dialog from 'primevue/dialog'
@@ -67,6 +69,7 @@ import {
 } from '../services/taskService'
 
 const authStore = useAuthStore()
+const isLoggedIn = computed(() => !!authStore.token)
 
 const tasks = ref<Task[]>([])
 
