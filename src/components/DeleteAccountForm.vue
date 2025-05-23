@@ -50,7 +50,6 @@
   const errorMessage = ref('')
   
   const handleDelete = () => {
-    errorMessage.value = ''  // clear previous errors if any
     emit('submit', { ...form.value })
   }
   </script>
