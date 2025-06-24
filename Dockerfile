@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 Jon Breid
+
 # build stage
 FROM node:lts-alpine as build-stage
 WORKDIR /app

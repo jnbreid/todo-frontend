@@ -1,3 +1,8 @@
+<!--
+  SPDX-License-Identifier: MIT
+  Copyright (c) 2025 Jon Breid
+-->
+
 <template>
   <div
     class="flex items-center justify-between p-4 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition text-gray-900 dark:text-gray-100"

@@ -1,3 +1,8 @@
+<!--
+  SPDX-License-Identifier: MIT
+  Copyright (c) 2025 Jon Breid
+-->
+
 <template>
     <form @submit.prevent="handleDelete" class="space-y-4">
       <div>

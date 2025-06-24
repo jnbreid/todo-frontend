@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2025 Jon Breid
+
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'

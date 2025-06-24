@@ -1,3 +1,8 @@
+<!--
+  SPDX-License-Identifier: MIT
+  Copyright (c) 2025 Jon Breid
+-->
+
 <template>
   <div class="min-h-screen bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
     <nav class="bg-white dark:bg-gray-800 p-4 shadow flex justify-between items-center">

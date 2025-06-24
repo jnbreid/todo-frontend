@@ -1,4 +1,5 @@
-
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2025 Jon Breid
 
 import axios from 'axios'
 import { useAuthStore } from '../store/auth' // adjust path

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2025 Jon Breid
 
 import apiClient from './apiClient'
 import type { User } from '../types/user'
