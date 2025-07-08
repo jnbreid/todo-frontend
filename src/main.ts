@@ -12,12 +12,14 @@ import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
 
-// PrimeVue styles
-import 'primevue/resources/themes/saga-blue/theme.css'  // Theme (light)
+// PrimeVue 
 import 'primevue/resources/primevue.min.css'            // Core PrimeVue styles
 import 'primeicons/primeicons.css'                      // Icons
 
 import './assets/main.css'
+
+
+
 
 const app = createApp(App)
 app.use(pinia)

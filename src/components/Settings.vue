@@ -6,6 +6,7 @@
 <template>
   <div class="max-w-md mx-auto p-6 space-y-6 text-gray-900 dark:text-gray-100">
 
+    <!-- Toggle Theme -->
     <div class="flex items-center justify-between">
       <label class="font-semibold">Dark Mode</label>
       <button
@@ -14,8 +15,9 @@
       >
         {{ isDark ? 'Dark' : 'Light' }}
       </button>
-    </div>
+    </div> 
 
+    <!-- Delete button -->
     <div v-if="isLoggedIn" class="space-y-4">
       <button
         @click="openDeleteDialog"

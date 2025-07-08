@@ -82,18 +82,17 @@ const showSettings = ref(false)
 const isLoggedIn = computed(() => !!authStore.token)
 
 // Toggle dark/light mode
-const applyTheme = (dark: boolean) => {
-  const lightTheme = document.getElementById('pv-light') as HTMLLinkElement
-  const darkTheme = document.getElementById('pv-dark') as HTMLLinkElement
-
-  if (lightTheme && darkTheme) {
-    lightTheme.disabled = dark
-    darkTheme.disabled = !dark
+function applyTheme(dark: boolean): void {
+  const light = document.getElementById('pv-light') as HTMLLinkElement
+  const darkL = document.getElementById('pv-dark')  as HTMLLinkElement
+  if (light && darkL) {
+    light.disabled = dark
+    darkL.disabled = !dark
   }
-
   document.documentElement.classList.toggle('dark', dark)
   localStorage.setItem('theme', dark ? 'dark' : 'light')
 }
+
 
 // Load theme on mount and apply it
 onMounted(() => {
