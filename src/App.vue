@@ -49,7 +49,7 @@
       header="Settings"
       class="w-full max-w-md"
       :closable="true"
-      contentClass="dark:bg-gray-800 dark:text-gray-100"
+      contentClass="bg-gray-100 dark:bg-gray-800 dark:text-gray-100"
       headerClass="dark:bg-gray-900 dark:text-gray-100"
       @hide="showSettings = false"
     >
