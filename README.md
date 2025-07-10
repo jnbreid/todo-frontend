@@ -4,16 +4,6 @@ This is the frontend for a simple to-do application built with [Vue 3](https://v
 
 ---
 
-##  Features
-
--  User registration and login
--  Create, update, delete, and complete tasks
--  Publicly shareable task links
--  Responsive UI with Tailwind and PrimeVue components
--  Fast development via Vite
-
----
-
 ## Technologies Used
 
 - **Vue 3**
